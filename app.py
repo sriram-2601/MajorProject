@@ -58,147 +58,15 @@ def transform_image(image):
     return transform(image).unsqueeze(0)
 
 # -----------------------------------------------------------------------------
-# Custom CSS for "Peaceful AWS-Like" UI
-# -----------------------------------------------------------------------------
-# AWS Colors: #232F3E (Navy), #FF9900 (Orange), #F2F3F3 (Light Gray), #161E2D (Darker Navy)
-st.markdown("""
-
-<style>
-    /* Global Background - Dark Navy */
-    .stApp {
-        background-color: #0F172A; 
-        color: #CBD5F5;
-        font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    }
-    
-    /* Header/Title Styling - White */
-    h1, h2, h3 {
-        color: #F8FAFC;
-        font-weight: 700;
-        letter-spacing: -0.02em;
-        margin-bottom: 0.5rem;
-    }
-    
-    /* Sidebar Styling - Matches Card/Darker Tone */
-    section[data-testid="stSidebar"] {
-        background-color: #1E293B;
-        border-right: 1px solid #334155;
-    }
-    section[data-testid="stSidebar"] h1, 
-    section[data-testid="stSidebar"] h2, 
-    section[data-testid="stSidebar"] h3 {
-        color: #F8FAFC !important;
-    }
-    section[data-testid="stSidebar"] p, 
-    section[data-testid="stSidebar"] span {
-        color: #CBD5F5 !important;
-    }
-    
-    /* Buttons - Cyan with Dark Text */
-    .stButton > button {
-        background-color: #06B6D4;
-        color: #0F172A;
-        font-weight: 700;
-        border: none;
-        border-radius: 8px;
-        padding: 0.6rem 1.5rem;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-        transition: all 0.2s ease;
-    }
-    .stButton > button:hover {
-        transform: translateY(-1px);
-        background-color: #0891B2; /* Slightly darker cyan on hover */
-        color: #F8FAFC;
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-    }
-    
-    /* File Uploader - Card Style */
-    .stFileUploader {
-        background-color: #1E293B;
-        border: 2px dashed #475569;
-        border-radius: 12px;
-        padding: 2rem;
-        transition: border 0.3s ease;
-    }
-    .stFileUploader:hover {
-        border-color: #3B82F6; /* Accent Blue */
-    }
-    .stFileUploader label {
-        color: #CBD5F5 !important;
-    }
-    
-    /* Cards / Containers - Slate Background */
-    div.stExpander, div[data-testid="stMetric"], div[data-testid="stVerticalBlock"] > div > div[data-testid="stBlock"] {
-        background-color: #1E293B;
-        border: 1px solid #334155;
-        border-radius: 12px;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
-    }
-    
-    /* Metrics */
-    div[data-testid="stMetricLabel"] {
-        color: #94A3B8;
-        font-size: 0.85rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-    }
-    div[data-testid="stMetricValue"] {
-        color: #F8FAFC;
-        font-weight: 700;
-    }
-
-    /* Success/Error Messages */
-    .stSuccess {
-        background-color: #064E3B; /* Dark Green */
-        color: #6EE7B7; /* Light Green Text */
-        border: 1px solid #059669;
-        border-radius: 8px;
-    }
-    .stError {
-        background-color: #7F1D1D; /* Dark Red */
-        color: #FCA5A5; /* Light Red Text */
-        border: 1px solid #DC2626;
-        border-radius: 8px;
-    }
-    .stInfo {
-        background-color: #1E3A8A; /* Dark Blue */
-        color: #93C5FD; /* Light Blue Text */
-        border: 1px solid #2563EB;
-        border-radius: 8px;
-    }
-
-    /* Footer / Helper Text */
-    .caption {
-        font-size: 0.8rem;
-        color: #94A3B8;
-    }
-    
-    /* Tabs Styling */
-    .stTabs [data-baseweb="tab-list"] {
-        gap: 24px;
-        border-bottom: 1px solid #334155;
-    }
-    .stTabs [data-baseweb="tab"] {
-        height: 50px;
-        white-space: pre-wrap;
-        background-color: transparent;
-        border-radius: 4px 4px 0 0;
-        color: #94A3B8;
-        font-weight: 600;
-    }
-    .stTabs [aria-selected="true"] {
-        color: #06B6D4; /* Cyan Accent */
-        border-bottom: 2px solid #06B6D4;
-    }
-</style>
-""", unsafe_allow_html=True)
-
-# -----------------------------------------------------------------------------
-# Sidebar Navigation
+# Sidebar Navigation & Settings
 # -----------------------------------------------------------------------------
 with st.sidebar:
     st.title("✨ AI Inference")
+    st.markdown("---")
+    
+    st.subheader("Theme settings")
+    is_light_theme = st.toggle("💡 Light Mode", value=False)
+    
     st.markdown("---")
     
     st.subheader("Resource Status")
@@ -215,6 +83,189 @@ with st.sidebar:
     
     st.markdown("---")
     st.caption("Project: Major Project Final")
+
+# -----------------------------------------------------------------------------
+# Custom CSS for UI
+# -----------------------------------------------------------------------------
+if is_light_theme:
+    bg_color = "#F8F7FF"
+    text_main = "#4B5563"
+    text_heading = "#1F1F2E"
+    sidebar_bg = "#F1F0FF"
+    border_color = "#DDD6FE"
+    card_bg = "#FFFFFF"
+    subtext = "#9CA3AF"
+    accent = "#8B5CF6"
+    accent_hover = "#7C3AED"
+    success_bg = "rgba(34, 197, 94, 0.1)"
+    success_border = "#22C55E"
+    error_bg = "rgba(239, 68, 68, 0.1)"
+    error_border = "#EF4444"
+    red_text = "#EF4444"
+else:
+    bg_color = "#0F0F1A"
+    text_main = "#9CA3AF"
+    text_heading = "#E5E7EB"
+    sidebar_bg = "#1A1A2E"
+    border_color = "#2E2E4D"
+    card_bg = "#1A1A2E"
+    subtext = "#6B7280"
+    accent = "#8B5CF6"
+    accent_hover = "#A78BFA"
+    success_bg = "rgba(34, 197, 94, 0.1)"
+    success_border = "#22C55E"
+    error_bg = "rgba(248, 113, 113, 0.1)"
+    error_border = "#F87171"
+    red_text = "#F87171"
+
+st.markdown(f"""
+<style>
+    :root {{
+        --bg-color: {bg_color};
+        --text-main: {text_main};
+        --text-heading: {text_heading};
+        --sidebar-bg: {sidebar_bg};
+        --border-color: {border_color};
+        --card-bg: {card_bg};
+        --subtext: {subtext};
+        --accent: {accent};
+        --accent-hover: {accent_hover};
+        --success-bg: {success_bg};
+        --success-border: {success_border};
+        --error-bg: {error_bg};
+        --error-border: {error_border};
+        --red-text: {red_text};
+    }}
+    
+    /* Global Background */
+    .stApp {{
+        background-color: var(--bg-color); 
+        color: var(--text-main);
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }}
+    
+    /* Header/Title Styling */
+    h1, h2, h3, h4, h5, h6 {{
+        color: var(--text-heading) !important;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        margin-bottom: 0.5rem;
+    }}
+    
+    /* Sidebar Styling */
+    section[data-testid="stSidebar"] {{
+        background-color: var(--sidebar-bg);
+        border-right: 1px solid var(--border-color);
+    }}
+    section[data-testid="stSidebar"] h1, 
+    section[data-testid="stSidebar"] h2, 
+    section[data-testid="stSidebar"] h3 {{
+        color: var(--text-heading) !important;
+    }}
+    section[data-testid="stSidebar"] p, 
+    section[data-testid="stSidebar"] span {{
+        color: var(--text-main) !important;
+    }}
+    
+    /* Buttons */
+    .stButton > button {{
+        background-color: var(--accent);
+        color: #F8FAFC;
+        font-weight: 700;
+        border: none;
+        border-radius: 8px;
+        padding: 0.6rem 1.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        transition: all 0.2s ease;
+    }}
+    .stButton > button:hover {{
+        transform: translateY(-1px);
+        background-color: var(--accent-hover);
+        color: #FFFFFF;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+    }}
+    
+    /* File Uploader */
+    .stFileUploader {{
+        background-color: var(--card-bg);
+        border: 2px dashed var(--border-color);
+        border-radius: 12px;
+        padding: 2rem;
+        transition: border 0.3s ease;
+    }}
+    .stFileUploader:hover {{
+        border-color: var(--accent);
+    }}
+    .stFileUploader label {{
+        color: var(--text-main) !important;
+    }}
+    
+    /* Cards / Containers */
+    div.stExpander, div[data-testid="stMetric"], div[data-testid="stVerticalBlock"] > div > div[data-testid="stBlock"] {{
+        background-color: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }}
+    
+    /* Metrics */
+    div[data-testid="stMetricLabel"] {{
+        color: var(--subtext);
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }}
+    div[data-testid="stMetricValue"] {{
+        color: var(--text-heading);
+        font-weight: 700;
+    }}
+
+    /* Success/Error Messages */
+    .stSuccess {{
+        background-color: var(--success-bg);
+        color: var(--success-border);
+        border: 1px solid var(--success-border);
+        border-radius: 8px;
+    }}
+    .stError {{
+        background-color: var(--error-bg);
+        color: var(--error-border);
+        border: 1px solid var(--error-border);
+        border-radius: 8px;
+    }}
+    .stInfo {{
+        background-color: rgba(30, 58, 138, 0.1);
+        color: #2563EB;
+        border: 1px solid #2563EB;
+        border-radius: 8px;
+    }}
+
+    /* Footer / Helper Text */
+    .caption {{
+        font-size: 0.8rem;
+        color: var(--subtext);
+    }}
+    
+    /* Tabs Styling */
+    .stTabs [data-baseweb="tab-list"] {{
+        gap: 24px;
+        border-bottom: 1px solid var(--border-color);
+    }}
+    .stTabs [data-baseweb="tab"] {{
+        height: 50px;
+        white-space: pre-wrap;
+        background-color: transparent;
+        border-radius: 4px 4px 0 0;
+        color: var(--subtext);
+        font-weight: 600;
+    }}
+    .stTabs [aria-selected="true"] {{
+        color: var(--accent);
+        border-bottom: 2px solid var(--accent);
+    }}
+</style>
+""", unsafe_allow_html=True)
 
 # -----------------------------------------------------------------------------
 # Main Application Logic
@@ -249,139 +300,139 @@ with tab1:
                         
                         for idx, uploaded_file in enumerate(uploaded_files):
                             image = Image.open(uploaded_file)
-                        try:
-                            start_time = time.time()
-                            
-                            # Edge Simulation (Feature Extraction)
-                            tensor = transform_image(image)
-                            with torch.no_grad():
-                                features = FEATURES_MODEL(tensor)
-                                
-                            # Monolithic Local Inference (For Comparison)
-                            local_start_time = time.time()
-                            with torch.no_grad():
-                                local_output = FULL_MODEL(tensor)
-                            local_end_time = time.time()
-                            local_latency_ms = (local_end_time - local_start_time) * 1000
-                            
-                            # Serialize intermediate features
-                            buffer = io.BytesIO()
-                            torch.save(features, buffer)
-                            buffer.seek(0)
-                            
-                            # Real Network Transfer & Cloud Simulation (Classification)
                             try:
-                                cloud_start_time = time.time()
+                                start_time = time.time()
+                            
+                                # Edge Simulation (Feature Extraction)
+                                tensor = transform_image(image)
+                                with torch.no_grad():
+                                    features = FEATURES_MODEL(tensor)
                                 
-                                # Use Boto3 to orchestrate S3 + Step Functions
-                                sts = boto3.client('sts')
-                                account_id = sts.get_caller_identity()['Account']
-                                region = boto3.session.Session().region_name or 'us-east-1'
-                                bucket_name = f"mobilenet-slices-{account_id}-{region}"
+                                # Monolithic Local Inference (For Comparison)
+                                local_start_time = time.time()
+                                with torch.no_grad():
+                                    local_output = FULL_MODEL(tensor)
+                                local_end_time = time.time()
+                                local_latency_ms = (local_end_time - local_start_time) * 1000
+                            
+                                # Serialize intermediate features
+                                buffer = io.BytesIO()
+                                torch.save(features, buffer)
+                                buffer.seek(0)
+                            
+                                # Real Network Transfer & Cloud Simulation (Classification)
+                                try:
+                                    cloud_start_time = time.time()
                                 
-                                session_id = str(uuid.uuid4())
-                                input_s3_key = f"{session_id}/tensor_1.pt"
+                                    # Use Boto3 to orchestrate S3 + Step Functions
+                                    sts = boto3.client('sts')
+                                    account_id = sts.get_caller_identity()['Account']
+                                    region = boto3.session.Session().region_name or 'us-east-1'
+                                    bucket_name = f"mobilenet-slices-{account_id}-{region}"
                                 
-                                # Upload to S3
-                                s3 = boto3.client('s3', region_name=region)
-                                s3.upload_fileobj(buffer, bucket_name, input_s3_key)
+                                    session_id = str(uuid.uuid4())
+                                    input_s3_key = f"{session_id}/tensor_1.pt"
                                 
-                                # Trigger Step Function
-                                sf = boto3.client('stepfunctions', region_name=region)
-                                state_machine_arn = f"arn:aws:states:{region}:{account_id}:stateMachine:MobileNetInferenceStateMachine"
+                                    # Upload to S3
+                                    s3 = boto3.client('s3', region_name=region)
+                                    s3.upload_fileobj(buffer, bucket_name, input_s3_key)
                                 
-                                sf_payload = json.dumps({
-                                    "session_id": session_id,
-                                    "bucket_name": bucket_name,
-                                    "input_tensor_s3_key": input_s3_key
-                                })
+                                    # Trigger Step Function
+                                    sf = boto3.client('stepfunctions', region_name=region)
+                                    state_machine_arn = f"arn:aws:states:{region}:{account_id}:stateMachine:MobileNetInferenceStateMachine"
                                 
-                                st.toast("Invoking N-Slice AWS Step Function...", icon="🔄")
-                                response = sf.start_execution(
-                                    stateMachineArn=state_machine_arn,
-                                    input=sf_payload
-                                )
-                                execution_arn = response['executionArn']
+                                    sf_payload = json.dumps({
+                                        "session_id": session_id,
+                                        "bucket_name": bucket_name,
+                                        "input_tensor_s3_key": input_s3_key
+                                    })
                                 
-                                # Wait for execution to finish
-                                status = 'RUNNING'
-                                sf_result = {}
-                                timeout_counter = 0
+                                    st.toast("Invoking N-Slice AWS Step Function...", icon="🔄")
+                                    response = sf.start_execution(
+                                        stateMachineArn=state_machine_arn,
+                                        input=sf_payload
+                                    )
+                                    execution_arn = response['executionArn']
                                 
-                                # UI Placeholder for live tracking
-                                execution_placeholder = st.empty()
+                                    # Wait for execution to finish
+                                    status = 'RUNNING'
+                                    sf_result = {}
+                                    timeout_counter = 0
                                 
-                                while status == 'RUNNING':
-                                    if timeout_counter > 30:
-                                        st.error("Step Function timed out locally.")
-                                        st.stop()
-                                    time.sleep(1.5) # Slight delay
-                                    timeout_counter += 1
+                                    # UI Placeholder for live tracking
+                                    execution_placeholder = st.empty()
+                                
+                                    while status == 'RUNNING':
+                                        if timeout_counter > 30:
+                                            st.error("Step Function timed out locally.")
+                                            st.stop()
+                                        time.sleep(1.5) # Slight delay
+                                        timeout_counter += 1
                                     
-                                    # Describe overall state
-                                    desc = sf.describe_execution(executionArn=execution_arn)
-                                    status = desc['status']
+                                        # Describe overall state
+                                        desc = sf.describe_execution(executionArn=execution_arn)
+                                        status = desc['status']
                                     
-                                    # Describe history logic to trace active slice
-                                    try:
-                                        history = sf.get_execution_history(executionArn=execution_arn, maxResults=100, reverseOrder=True)
-                                        events = history.get('events', [])
-                                        active_state = "Starting..."
-                                        for event in events:
-                                            if 'stateEnteredEventDetails' in event:
-                                                active_state = event['stateEnteredEventDetails']['name']
-                                                break
+                                        # Describe history logic to trace active slice
+                                        try:
+                                            history = sf.get_execution_history(executionArn=execution_arn, maxResults=100, reverseOrder=True)
+                                            events = history.get('events', [])
+                                            active_state = "Starting..."
+                                            for event in events:
+                                                if 'stateEnteredEventDetails' in event:
+                                                    active_state = event['stateEnteredEventDetails']['name']
+                                                    break
                                             
-                                        # Map state internal name to human UI name
-                                        slice_map = {
-                                            "Execute_Slice_2": "Cloud (Step 1)",
-                                            "Execute_Slice_3": "Cloud (Step 2)",
-                                            "Execute_Slice_4": "Cloud (Step 3)",
-                                            "Execute_Slice_5": "Cloud (Classifier)"
-                                        }
-                                        ui_state = slice_map.get(active_state, active_state)
+                                            # Map state internal name to human UI name
+                                            slice_map = {
+                                                "Execute_Slice_2": "Cloud (Step 1)",
+                                                "Execute_Slice_3": "Cloud (Step 2)",
+                                                "Execute_Slice_4": "Cloud (Step 3)",
+                                                "Execute_Slice_5": "Cloud (Classifier)"
+                                            }
+                                            ui_state = slice_map.get(active_state, active_state)
                                         
-                                        with execution_placeholder.container():
-                                            st.markdown(f"**Live Trace:** Edge Extract ✅ ➔ Processing: **{ui_state}** ⏳")
-                                    except Exception:
-                                        pass # Ignore history lookup failures if IAM limits occur
+                                            with execution_placeholder.container():
+                                                st.markdown(f"**Live Trace:** Edge Extract ✅ ➔ Processing: **{ui_state}** ⏳")
+                                        except Exception:
+                                            pass # Ignore history lookup failures if IAM limits occur
                                         
-                                    if status == 'SUCCEEDED':
-                                        sf_result = json.loads(desc['output'])
-                                        execution_placeholder.success("Pipeline Chain Complete! ✅")
-                                    elif status in ['FAILED', 'TIMED_OUT', 'ABORTED']:
-                                        st.error(f"AWS Execution Error: {status}")
+                                        if status == 'SUCCEEDED':
+                                            sf_result = json.loads(desc['output'])
+                                            execution_placeholder.success("Pipeline Chain Complete! ✅")
+                                        elif status in ['FAILED', 'TIMED_OUT', 'ABORTED']:
+                                            st.error(f"AWS Execution Error: {status}")
+                                            st.stop()
+                                        
+                                    if 'error' in sf_result:
+                                        st.error(f"Cloud Server Logic Error: {sf_result['error']}")
                                         st.stop()
-                                        
-                                if 'error' in sf_result:
-                                    st.error(f"Cloud Server Logic Error: {sf_result['error']}")
+                                
+                                    class_idx = sf_result.get("class_idx", 0)
+                                    confidence = sf_result.get("confidence", 0.0)
+                                    arch = sf_result.get("architecture", "n-slice-step-functions")
+                                
+                                except Exception as e:
+                                    st.error(f"❌ Failed to reach AWS: {str(e)}")
                                     st.stop()
                                 
-                                class_idx = sf_result.get("class_idx", 0)
-                                confidence = sf_result.get("confidence", 0.0)
-                                arch = sf_result.get("architecture", "n-slice-step-functions")
+                                end_time = time.time()
+                                latency = (end_time - start_time) * 1000
+                            
+                                # Format result
+                                result = {
+                                    "filename": uploaded_file.name,
+                                    "class": f"Class {class_idx}",
+                                    "confidence": confidence,
+                                    "latency_ms": round(latency, 2),
+                                    "local_latency_ms": round(local_latency_ms, 2),
+                                    "architecture": "n-slice-step-functions"
+                                }
+                                batch_results.append(result)
+                                progress_bar.progress((idx + 1) / len(uploaded_files))
                                 
                             except Exception as e:
-                                st.error(f"❌ Failed to reach AWS: {str(e)}")
-                                st.stop()
-                                
-                            end_time = time.time()
-                            latency = (end_time - start_time) * 1000
-                            
-                            # Format result
-                            result = {
-                                "filename": uploaded_file.name,
-                                "class": f"Class {class_idx}",
-                                "confidence": confidence,
-                                "latency_ms": round(latency, 2),
-                                "local_latency_ms": round(local_latency_ms, 2),
-                                "architecture": "n-slice-step-functions"
-                            }
-                            batch_results.append(result)
-                            progress_bar.progress((idx + 1) / len(uploaded_files))
-                                
-                        except Exception as e:
-                            st.error(f"Inference Failed for {uploaded_file.name}: {str(e)}")
+                                st.error(f"Inference Failed for {uploaded_file.name}: {str(e)}")
                             
                     st.session_state['batch_history'].extend(batch_results)
                     st.toast("Batch Inference Completed Successfully!", icon="✅")
@@ -395,10 +446,10 @@ with tab1:
             
             # Show the most recent result box
             st.markdown(f"""
-            <div style="background-color: #1E293B; padding: 20px; border-radius: 12px; border-left: 5px solid #06B6D4; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); word-wrap: break-word;">
-                <h4 style="color: #94A3B8; margin: 0;">Predicted Class (Latest: {latest_res.get('filename')})</h4>
-                <h1 style="color: #F8FAFC; font-size: 2.2rem; margin: 10px 0; word-wrap: break-word;">{latest_res.get('class', 'Unknown')}</h1>
-                <p style="color: #CBD5F5;">Confidence Score: <strong>{latest_res.get('confidence', 0)*100:.2f}%</strong></p>
+            <div style="background-color: var(--card-bg); padding: 20px; border-radius: 12px; border-left: 5px solid var(--accent); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); word-wrap: break-word;">
+                <h4 style="color: var(--subtext); margin: 0;">Predicted Class (Latest: {latest_res.get('filename')})</h4>
+                <h1 style="color: var(--text-heading); font-size: 2.2rem; margin: 10px 0; word-wrap: break-word;">{latest_res.get('class', 'Unknown')}</h1>
+                <p style="color: var(--text-main);">Confidence Score: <strong>{latest_res.get('confidence', 0)*100:.2f}%</strong></p>
             </div>
             """, unsafe_allow_html=True)
             
@@ -410,17 +461,17 @@ with tab1:
             
             st.markdown(f"""
             <div style="display: flex; gap: 15px; margin-top: 10px;">
-                <div style="flex: 1; background-color: #1E293B; padding: 15px; border-radius: 8px; border: 1px solid #334155;">
-                    <p style="color: #94A3B8; font-size: 0.85rem; margin: 0; text-transform: uppercase;">Compute Type</p>
-                    <p style="color: #F8FAFC; font-size: 1.3rem; font-weight: bold; margin: 5px 0 0 0; word-wrap: break-word;">AWS Step Functions</p>
+                <div style="flex: 1; background-color: var(--card-bg); padding: 15px; border-radius: 8px; border: 1px solid var(--border-color);">
+                    <p style="color: var(--subtext); font-size: 0.85rem; margin: 0; text-transform: uppercase;">Compute Type</p>
+                    <p style="color: var(--text-heading); font-size: 1.3rem; font-weight: bold; margin: 5px 0 0 0; word-wrap: break-word;">AWS Step Functions</p>
                 </div>
-                <div style="flex: 1; background-color: #1E293B; padding: 15px; border-radius: 8px; border: 1px solid #334155;">
-                    <p style="color: #94A3B8; font-size: 0.85rem; margin: 0; text-transform: uppercase;">Latency</p>
-                    <p style="color: #F8FAFC; font-size: 1.3rem; font-weight: bold; margin: 5px 0 0 0; word-wrap: break-word;">{lat_str}</p>
+                <div style="flex: 1; background-color: var(--card-bg); padding: 15px; border-radius: 8px; border: 1px solid var(--border-color);">
+                    <p style="color: var(--subtext); font-size: 0.85rem; margin: 0; text-transform: uppercase;">Latency</p>
+                    <p style="color: var(--text-heading); font-size: 1.3rem; font-weight: bold; margin: 5px 0 0 0; word-wrap: break-word;">{lat_str}</p>
                 </div>
-                <div style="flex: 1; background-color: #1E293B; padding: 15px; border-radius: 8px; border: 1px solid #334155;">
-                    <p style="color: #94A3B8; font-size: 0.85rem; margin: 0; text-transform: uppercase;">Cost</p>
-                    <p style="color: #F8FAFC; font-size: 1.3rem; font-weight: bold; margin: 5px 0 0 0;">$0.00</p>
+                <div style="flex: 1; background-color: var(--card-bg); padding: 15px; border-radius: 8px; border: 1px solid var(--border-color);">
+                    <p style="color: var(--subtext); font-size: 0.85rem; margin: 0; text-transform: uppercase;">Cost</p>
+                    <p style="color: var(--text-heading); font-size: 1.3rem; font-weight: bold; margin: 5px 0 0 0;">$0.00</p>
                 </div>
             </div>
             """, unsafe_allow_html=True)
@@ -439,21 +490,46 @@ with tab1:
                 "local_latency_ms": "Full Model (Local) latency ms"
             })
             chart_df = chart_df.set_index("display_name")
-            st.line_chart(chart_df[["Sliced Model (AWS) latency ms", "Full Model (Local) latency ms"]])
+            
+            # Split charts side-by-side to bypass linear scale eclipsing
+            col_aws_chart, col_local_chart = st.columns(2)
+            with col_aws_chart:
+                st.markdown("##### Cloud Deployment (AWS)")
+                st.bar_chart(chart_df[["Sliced Model (AWS) latency ms"]], color="#8B5CF6")
+            with col_local_chart:
+                st.markdown("##### Local Monolithic")
+                st.bar_chart(chart_df[["Full Model (Local) latency ms"]], color="#22C55E")
             
             avg_lat = sum(r['latency_ms'] for r in res_list) / len(res_list)
             avg_lat_str = f"{avg_lat/1000:.2f} s" if avg_lat > 1000 else f"{round(avg_lat, 2)} ms"
             avg_local_lat = sum(r.get('local_latency_ms', 0) for r in res_list) / len(res_list)
             avg_local_lat_str = f"{avg_local_lat/1000:.2f} s" if avg_local_lat > 1000 else f"{round(avg_local_lat, 2)} ms"
             st.markdown(f"""
-            <div style="display: flex; gap: 15px; margin-top: 10px;">
-                <div style="flex: 1; background-color: #1E293B; padding: 15px; border-radius: 8px; border: 1px solid #334155;">
-                    <p style="color: #94A3B8; font-size: 0.85rem; margin: 0; text-transform: uppercase;">Avg Sliced Latency</p>
-                    <p style="color: #F8FAFC; font-size: 1.3rem; font-weight: bold; margin: 5px 0 0 0;">{avg_lat_str}</p>
+            <div style="display: flex; gap: 15px; margin-top: 15px;">
+                <!-- Cloud Model Overview -->
+                <div style="flex: 1; background-color: var(--card-bg); padding: 20px; border-radius: 12px; border: 2px solid var(--accent);">
+                    <h4 style="color: var(--accent); margin: 0 0 15px 0;">☁️ Cloud Serverless Sliced Model</h4>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                        <span style="color: var(--subtext); font-size: 0.9rem; text-transform: uppercase;">Average Latency</span>
+                        <strong style="color: var(--text-heading); font-size: 1.1rem;">{avg_lat_str}</strong>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span style="color: var(--subtext); font-size: 0.9rem; text-transform: uppercase;">Peak Node Memory</span>
+                        <strong style="color: var(--success-border); font-size: 1.1rem;">600 MB (Scalable)</strong>
+                    </div>
                 </div>
-                <div style="flex: 1; background-color: #1E293B; padding: 15px; border-radius: 8px; border: 1px solid #334155;">
-                    <p style="color: #94A3B8; font-size: 0.85rem; margin: 0; text-transform: uppercase;">Avg Monolithic Latency</p>
-                    <p style="color: #F8FAFC; font-size: 1.3rem; font-weight: bold; margin: 5px 0 0 0;">{avg_local_lat_str}</p>
+
+                <!-- Local Model Overview -->
+                <div style="flex: 1; background-color: var(--card-bg); padding: 20px; border-radius: 12px; border: 2px solid #22C55E;">
+                    <h4 style="color: #22C55E; margin: 0 0 15px 0;">💻 Local Monolithic Edge Model</h4>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                        <span style="color: var(--subtext); font-size: 0.9rem; text-transform: uppercase;">Average Latency</span>
+                        <strong style="color: var(--text-heading); font-size: 1.1rem;">{avg_local_lat_str}</strong>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span style="color: var(--subtext); font-size: 0.9rem; text-transform: uppercase;">Peak Node Memory</span>
+                        <strong style="color: var(--red-text); font-size: 1.1rem;">3008 MB (Monolith)</strong>
+                    </div>
                 </div>
             </div>
             """, unsafe_allow_html=True)
@@ -479,16 +555,17 @@ with tab2:
     
     with colA:
         st.markdown("##### The Pareto Trade-off Front")
-        st.scatter_chart(tradeoff_data, x="Execution Latency (ms)", y="Memory Allocated (MB)", color="Configuration", size=400)
+        chart_data = tradeoff_data.set_index("Execution Latency (ms)")["Memory Allocated (MB)"]
+        st.line_chart(chart_data)
         
     with colB:
         st.markdown("##### Metric Breakdown")
         for i, row in tradeoff_data.iterrows():
             st.markdown(f"""
-            <div style="background-color: #1E293B; padding: 15px; border-radius: 8px; border: 1px solid #334155; margin-bottom: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
-                <h5 style="color: #F8FAFC; margin-bottom: 5px; font-size: 1rem;">{row['Configuration']}</h5>
-                <p style="color: #94A3B8; margin: 0; font-size: 0.9em;">Peak Node Memory: <br/><strong style="color: #06B6D4; font-size: 1.1em;">{row['Memory Allocated (MB)']} MB</strong></p>
-                <p style="color: #94A3B8; margin: 0; font-size: 0.9em;">Cold Start Latency: <br/><strong style="color: #FCA5A5; font-size: 1.1em;">{row['Execution Latency (ms)']} ms</strong></p>
+            <div style="background-color: var(--card-bg); padding: 15px; border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
+                <h5 style="color: var(--text-heading); margin-bottom: 5px; font-size: 1rem;">{row['Configuration']}</h5>
+                <p style="color: var(--subtext); margin: 0; font-size: 0.9em;">Peak Node Memory: <br/><strong style="color: var(--accent); font-size: 1.1em;">{row['Memory Allocated (MB)']} MB</strong></p>
+                <p style="color: var(--subtext); margin: 0; font-size: 0.9em;">Cold Start Latency: <br/><strong style="color: var(--red-text); font-size: 1.1em;">{row['Execution Latency (ms)']} ms</strong></p>
             </div>
             """, unsafe_allow_html=True)
             
