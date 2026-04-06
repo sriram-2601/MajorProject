@@ -1,0 +1,133 @@
+{
+  "StartAt": "Execute_Slice_2",
+  "States": {
+    "Execute_Slice_2": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Parameters": {
+        "FunctionName": "mobilenet-inference",
+        "Payload": {
+          "slice_target": 2,
+          "session_id.$": "$.session_id",
+          "bucket_name.$": "$.bucket_name",
+          "input_tensor_s3_key.$": "$.input_tensor_s3_key"
+        }
+      },
+      "Retry": [
+        {
+          "ErrorEquals": [
+            "Lambda.ServiceException",
+            "Lambda.AWSLambdaException",
+            "Lambda.SdkClientException",
+            "Lambda.TooManyRequestsException"
+          ],
+          "IntervalSeconds": 1,
+          "MaxAttempts": 3,
+          "BackoffRate": 2
+        }
+      ],
+      "Next": "Execute_Slice_3",
+      "ResultSelector": {
+        "session_id.$": "$.Payload.session_id",
+        "bucket_name.$": "$.Payload.bucket_name",
+        "input_tensor_s3_key.$": "$.Payload.output_tensor_s3_key"
+      }
+    },
+    "Execute_Slice_3": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Parameters": {
+        "FunctionName": "mobilenet-inference",
+        "Payload": {
+          "slice_target": 3,
+          "session_id.$": "$.session_id",
+          "bucket_name.$": "$.bucket_name",
+          "input_tensor_s3_key.$": "$.input_tensor_s3_key"
+        }
+      },
+      "Retry": [
+        {
+          "ErrorEquals": [
+            "Lambda.ServiceException",
+            "Lambda.AWSLambdaException",
+            "Lambda.SdkClientException",
+            "Lambda.TooManyRequestsException"
+          ],
+          "IntervalSeconds": 1,
+          "MaxAttempts": 3,
+          "BackoffRate": 2
+        }
+      ],
+      "Next": "Execute_Slice_4",
+      "ResultSelector": {
+        "session_id.$": "$.Payload.session_id",
+        "bucket_name.$": "$.Payload.bucket_name",
+        "input_tensor_s3_key.$": "$.Payload.output_tensor_s3_key"
+      }
+    },
+    "Execute_Slice_4": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Parameters": {
+        "FunctionName": "mobilenet-inference",
+        "Payload": {
+          "slice_target": 4,
+          "session_id.$": "$.session_id",
+          "bucket_name.$": "$.bucket_name",
+          "input_tensor_s3_key.$": "$.input_tensor_s3_key"
+        }
+      },
+      "Retry": [
+        {
+          "ErrorEquals": [
+            "Lambda.ServiceException",
+            "Lambda.AWSLambdaException",
+            "Lambda.SdkClientException",
+            "Lambda.TooManyRequestsException"
+          ],
+          "IntervalSeconds": 1,
+          "MaxAttempts": 3,
+          "BackoffRate": 2
+        }
+      ],
+      "Next": "Execute_Slice_5",
+      "ResultSelector": {
+        "session_id.$": "$.Payload.session_id",
+        "bucket_name.$": "$.Payload.bucket_name",
+        "input_tensor_s3_key.$": "$.Payload.output_tensor_s3_key"
+      }
+    },
+    "Execute_Slice_5": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Parameters": {
+        "FunctionName": "mobilenet-inference",
+        "Payload": {
+          "slice_target": 5,
+          "session_id.$": "$.session_id",
+          "bucket_name.$": "$.bucket_name",
+          "input_tensor_s3_key.$": "$.input_tensor_s3_key"
+        }
+      },
+      "Retry": [
+        {
+          "ErrorEquals": [
+            "Lambda.ServiceException",
+            "Lambda.AWSLambdaException",
+            "Lambda.SdkClientException",
+            "Lambda.TooManyRequestsException"
+          ],
+          "IntervalSeconds": 1,
+          "MaxAttempts": 3,
+          "BackoffRate": 2
+        }
+      ],
+      "End": true,
+      "ResultSelector": {
+        "class_idx.$": "$.Payload.class_idx",
+        "confidence.$": "$.Payload.confidence",
+        "architecture.$": "$.Payload.architecture"
+      }
+    }
+  }
+}

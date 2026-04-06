@@ -1,0 +1,6 @@
+{
+  "errorMessage": "Unable to import module 'lambda_function': No module named 'onnxruntime.capi.onnxruntime_pybind11_state'",
+  "errorType": "Runtime.ImportModuleError",
+  "requestId": "",
+  "stackTrace": []
+}
