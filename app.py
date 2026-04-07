@@ -537,37 +537,40 @@ with tab1:
             st.info("Waiting for input stream...")
 
 with tab2:
-    st.subheader("Architecture Trade-offs: Memory Efficiency vs Execution Latency")
-    st.markdown("""
-    This analytics view visually corroborates the foundational thesis of the split-computing architecture: **Serverless environments restrict massive deployments by memory. By slicing the neural graph across numerous ephemeral functions, absolute execution speed is traded to shatter the monolithic memory barrier, granting theoretically unbounded horizontal architecture scaling.**
-    """)
-    
-    import pandas as pd
-    
-    # Pareto front simulated dataset validating the research paper dynamics
-    tradeoff_data = pd.DataFrame({
-        "Configuration": ["1-Slice (Monolithic Cloud)", "2-Slice (Edge + 1 Cloud)", "5-Slice (N-Slice)"],
-        "Memory Allocated (MB)": [3008, 1500, 600],
-        "Execution Latency (ms)": [500, 1200, 3500] 
-    })
-    
-    colA, colB = st.columns([2, 1])
-    
-    with colA:
-        st.markdown("##### The Pareto Trade-off Front")
-        chart_data = tradeoff_data.set_index("Execution Latency (ms)")["Memory Allocated (MB)"]
-        st.line_chart(chart_data)
+    if 'batch_history' in st.session_state and len(st.session_state['batch_history']) > 0:
+        st.subheader("Architecture Trade-offs: Memory Efficiency vs Execution Latency")
+        st.markdown("""
+        This analytics view visually corroborates the foundational thesis of the split-computing architecture: **Serverless environments restrict massive deployments by memory. By slicing the neural graph across numerous ephemeral functions, absolute execution speed is traded to shatter the monolithic memory barrier, granting theoretically unbounded horizontal architecture scaling.**
+        """)
         
-    with colB:
-        st.markdown("##### Metric Breakdown")
-        for i, row in tradeoff_data.iterrows():
-            st.markdown(f"""
-            <div style="background-color: var(--card-bg); padding: 15px; border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
-                <h5 style="color: var(--text-heading); margin-bottom: 5px; font-size: 1rem;">{row['Configuration']}</h5>
-                <p style="color: var(--subtext); margin: 0; font-size: 0.9em;">Peak Node Memory: <br/><strong style="color: var(--accent); font-size: 1.1em;">{row['Memory Allocated (MB)']} MB</strong></p>
-                <p style="color: var(--subtext); margin: 0; font-size: 0.9em;">Cold Start Latency: <br/><strong style="color: var(--red-text); font-size: 1.1em;">{row['Execution Latency (ms)']} ms</strong></p>
-            </div>
-            """, unsafe_allow_html=True)
+        import pandas as pd
+        
+        # Pareto front simulated dataset validating the research paper dynamics
+        tradeoff_data = pd.DataFrame({
+            "Configuration": ["1-Slice (Monolithic Cloud)", "2-Slice (Edge + 1 Cloud)", "5-Slice (N-Slice)"],
+            "Memory Allocated (MB)": [3008, 1500, 600],
+            "Execution Latency (ms)": [500, 1200, 3500] 
+        })
+        
+        colA, colB = st.columns([2, 1])
+        
+        with colA:
+            st.markdown("##### The Pareto Trade-off Front")
+            chart_data = tradeoff_data.set_index("Execution Latency (ms)")["Memory Allocated (MB)"]
+            st.line_chart(chart_data)
+            
+        with colB:
+            st.markdown("##### Metric Breakdown")
+            for i, row in tradeoff_data.iterrows():
+                st.markdown(f"""
+                <div style="background-color: var(--card-bg); padding: 15px; border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);">
+                    <h5 style="color: var(--text-heading); margin-bottom: 5px; font-size: 1rem;">{{row['Configuration']}}</h5>
+                    <p style="color: var(--subtext); margin: 0; font-size: 0.9em;">Peak Node Memory: <br/><strong style="color: var(--accent); font-size: 1.1em;">{{row['Memory Allocated (MB)']}} MB</strong></p>
+                    <p style="color: var(--subtext); margin: 0; font-size: 0.9em;">Cold Start Latency: <br/><strong style="color: var(--red-text); font-size: 1.1em;">{{row['Execution Latency (ms)']}} ms</strong></p>
+                </div>
+                """, unsafe_allow_html=True)
+    else:
+        st.info("Waiting for input stream. Upload and process an image to view architecture trade-offs.")
             
 with tab3:
     st.subheader("System Logs")
